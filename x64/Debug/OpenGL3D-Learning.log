@@ -1,0 +1,31 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1098,5): warning MSB8027: Two or more files with the name of glm.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Dependecies\glm\detail\glm.cpp, Dependecies\glm\glm\detail\glm.cpp.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1098,5): warning MSB8027: Two or more files with the name of glm.cppm will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Dependecies\glm\glm.cppm, Dependecies\glm\glm\glm.cppm.
+  glm.cpp
+D:\OpenGL\OpenGL3D-Learning\Dependecies\glm\detail\glm.cpp(7,10): fatal error C1083: Cannot open include file: 'glm/gtx/dual_quaternion.hpp': No such file or directory
+  glm.cppm
+D:\OpenGL\OpenGL3D-Learning\Dependecies\glm\glm.cppm(1,7): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+D:\OpenGL\OpenGL3D-Learning\Dependecies\glm\glm.cppm(7,10): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  glm.cpp
+D:\OpenGL\OpenGL3D-Learning\Dependecies\glm\glm\detail\glm.cpp(7,10): fatal error C1083: Cannot open include file: 'glm/gtx/dual_quaternion.hpp': No such file or directory
+  glm.cppm
+D:\OpenGL\OpenGL3D-Learning\Dependecies\glm\glm\glm.cppm(1,7): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+D:\OpenGL\OpenGL3D-Learning\Dependecies\glm\glm\glm.cppm(7,10): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  Application.cpp
+D:\OpenGL\OpenGL3D-Learning\src\Application.cpp(2,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  IndexBuffer.cpp
+D:\OpenGL\OpenGL3D-Learning\src\Renderer.h(2,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Renderer.cpp
+D:\OpenGL\OpenGL3D-Learning\src\Renderer.h(2,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Shader.cpp
+D:\OpenGL\OpenGL3D-Learning\src\Shader.h(4,10): fatal error C1083: Cannot open include file: 'ext.hpp': No such file or directory
+  ShapeData.cpp
+D:\OpenGL\OpenGL3D-Learning\src\VertexStruct.h(2,10): fatal error C1083: Cannot open include file: 'glm.hpp': No such file or directory
+  ShapeGenerator.cpp
+D:\OpenGL\OpenGL3D-Learning\src\VertexStruct.h(2,10): fatal error C1083: Cannot open include file: 'glm.hpp': No such file or directory
+  VertexArray.cpp
+D:\OpenGL\OpenGL3D-Learning\src\Renderer.h(2,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  VertexBuffer.cpp
+D:\OpenGL\OpenGL3D-Learning\src\Renderer.h(2,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  VertexBufferLayout.cpp
+D:\OpenGL\OpenGL3D-Learning\src\VertexBufferLayout.h(2,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Generating Code...

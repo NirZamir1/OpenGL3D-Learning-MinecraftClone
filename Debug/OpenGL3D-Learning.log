@@ -1,0 +1,6 @@
+﻿  Application.cpp
+D:\OpenGL\OpenGL3D-Learning\src\Application.cpp(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\OpenGL\OpenGL3D-Learning\src\Application.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\OpenGL\OpenGL3D-Learning\src\Application.cpp(9,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\OpenGL\OpenGL3D-Learning\src\Application.cpp(10,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  OpenGL3D-Learning.vcxproj -> D:\OpenGL\OpenGL3D-Learning\Debug\OpenGL3D-Learning.exe
