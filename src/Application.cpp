@@ -12,8 +12,19 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 #include "IndexBuffer.h"
+#include "Texture.h"
+#include <math.h>
+#define DegToRad(x)  ((x*3.14159265f)/180.0f)
 int width(GLFWwindow* window);
 int height(GLFWwindow* window);
+void printMat4(const glm::mat4& matrix) {
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
 int main()
 {
     GLFWwindow* window;
@@ -23,7 +34,7 @@ int main()
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "OMG CUBE", NULL, NULL);
+    window = glfwCreateWindow(500, 300, "OMG CUBE", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -33,7 +44,7 @@ int main()
     glfwMakeContextCurrent(window);
     glewInit();
     glEnable(GL_DEPTH_TEST);
-    ShapeData shape = ShapeGenerator::makeCube();
+    ShapeData shape = ShapeGenerator::makeSquare();
     VertexArray va;
     VertexBuffer vb(shape.vertecies,shape.GetVerteciesBufferSize());
     IndexBuffer ib(shape.indecies,shape.numIndecies);
@@ -45,17 +56,32 @@ int main()
     ib.Bind();
     Shader shader("res/shaders/basics.shader");
     shader.Bind();
-    /* Loop until the user closes the window */
+
+    float nearPlane = 1.0f;
+    float farPlane = 8.0f;
+
+    float range = farPlane - nearPlane;
+    
+    float A = (-farPlane - nearPlane) / -range;
+    float B = 2.0f * farPlane * nearPlane / -range;
+
+    float angle = 0.0f;
     while (!glfwWindowShouldClose(window))
-    {
-        /* Render here */ 
-        glViewport(0, 0, width(window), height(window));
+    {   
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glm::mat4 ModelTransformMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f));
-        glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f),45.0f, glm::vec3(1.0f, 1.0f, 0.0f));
-        glm::mat4 ProjectionMatrix = glm::perspective(glm::radians(60.0f), (float)width(window) / height(window), 0.1f, 10.0f);
-        glm::mat4  mvpMatrix = ProjectionMatrix * ModelTransformMatrix * rotationMatrix;
+        float f = 1 /std::tan(glm::radians(30.0f));
+        float aspect = 1/((float)width(window) / height(window));
+        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle+= 0.5), glm::vec3(1.0f,1.0f, 1.0f));
+        glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 6.0f));
+        //glm::mat4 projection = glm::perspective(glm::radians(60.0f), 1/aspect, 0.1f, 100.0f);
+        glm::mat4 projection = glm::mat4(aspect * f,  0.0f,  0.0f, 0.0f,
+                                         0.0f,        f,     0.0f, 0.0f,
+                                         0.0f,        0.0f,  A, 1.0f,
+                                         0.0f,        0.0f,  B, 0.0f);
+        glm::mat4 mvpMatrix = projection * translate * rotate;
+        /* Render here */ 
         shader.SetUniformMatrix4fv("mvpMatrix", mvpMatrix);
+        glViewport(0, 0, width(window), height(window));
         GLCall(glDrawElements(GL_TRIANGLES, shape.numIndecies, GL_UNSIGNED_SHORT, 0));
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

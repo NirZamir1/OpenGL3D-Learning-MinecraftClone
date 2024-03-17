@@ -7,14 +7,14 @@ ShapeData ShapeGenerator::makeTriangle()
     ShapeData ret;
     Vertex Triangle[] =
     {
-       glm::vec3(1.0f,1.0f,0.0f),//pos
-       glm::vec3(0.0f,1.0f,1.0f),//color
+       glm::vec3(1.0f,1.0f,0.00f),//pos
+       glm::vec3(0.0f,1.0f,0.99f),//color
 
        glm::vec3(-1.0f,1.0f,0.0f),
        glm::vec3(1.0f,0.0f,0.0f),
 
        glm::vec3(0.0f,-1.0f,0.0f),
-       glm::vec3(1.0f,0.0f,0.0f),
+       glm::vec3(1.0f,0.0f,0.99f),
     };
     ret.vertecies = Triangle;
     ret.numVertecies = NUM_ELEMENTS_ARRAY(Triangle);
@@ -24,7 +24,35 @@ ShapeData ShapeGenerator::makeTriangle()
     };
     ret.indecies = indecies;
     ret.numIndecies = NUM_ELEMENTS_ARRAY(indecies);
-    return ret;
+    return std::move(ret);
+}
+ShapeData ShapeGenerator::makeSquare()
+{
+	ShapeData ret;
+	Vertex Triangle[] =
+	{
+	   glm::vec3(1.0f,1.0f,0.00f),//pos // top left
+	   glm::vec3(1.0f,0.0f,1.0f),//color
+
+	   glm::vec3(1.0f,-1.0f,0.0f), // bottom left
+	   glm::vec3(0.0f,1.0f,1.0f),
+
+	   glm::vec3(-1.0f,-1.0f,0.0f), // bottom right
+	   glm::vec3(1.0f,1.0f,0.00f),
+
+	   glm::vec3(-1.0f,1.0f,0.0f), // top right
+	   glm::vec3(1.0f,1.0f,1.00f),
+	};
+	ret.vertecies = Triangle;
+	ret.numVertecies = NUM_ELEMENTS_ARRAY(Triangle);
+	unsigned short indecies[] =
+	{
+		0,1,2,
+		3,0,2
+	};
+	ret.indecies = indecies;
+	ret.numIndecies = NUM_ELEMENTS_ARRAY(indecies);
+	return std::move(ret);
 }
 ShapeData ShapeGenerator::makeCube()
 {
@@ -97,5 +125,5 @@ ShapeData ShapeGenerator::makeCube()
 	};
     ret.indecies = stackIndices;
     ret.numIndecies = NUM_ELEMENTS_ARRAY(stackIndices);
-    return ret;
+    return std::move(ret);
 }

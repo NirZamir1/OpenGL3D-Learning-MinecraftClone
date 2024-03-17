@@ -5,6 +5,7 @@ ShapeData::ShapeData():vertecies(0),indecies(0),numIndecies(0),numVertecies(0)
 }
 ShapeData::ShapeData(const ShapeData& data)
 {
+	std::cout << "copy Constructor" << std::endl;
 	typedef unsigned short ushort;
 	numVertecies = data.numVertecies;
 	numIndecies = data.numIndecies;
