@@ -43,8 +43,9 @@ int main()
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
     glewInit();
+    glfwSwapInterval(1);
     glEnable(GL_DEPTH_TEST);
-    ShapeData shape = ShapeGenerator::makeSquare();
+    ShapeData shape = ShapeGenerator::makeCube();
     VertexArray va;
     VertexBuffer vb(shape.vertecies,shape.GetVerteciesBufferSize());
     IndexBuffer ib(shape.indecies,shape.numIndecies);
@@ -71,9 +72,8 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float f = 1 /std::tan(glm::radians(30.0f));
         float aspect = 1/((float)width(window) / height(window));
-        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle+= 0.5), glm::vec3(1.0f,1.0f, 1.0f));
+        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle += 0.5f), glm::vec3(1.0f,1.0f, 1.0f));
         glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 6.0f));
-        //glm::mat4 projection = glm::perspective(glm::radians(60.0f), 1/aspect, 0.1f, 100.0f);
         glm::mat4 projection = glm::mat4(aspect * f,  0.0f,  0.0f, 0.0f,
                                          0.0f,        f,     0.0f, 0.0f,
                                          0.0f,        0.0f,  A, 1.0f,

@@ -2,8 +2,8 @@
 #shader vertex
 #version 440 core
 
-in vec3 position;
-in vec3 c;
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec3 c;
 uniform mat4 mvpMatrix;
 
 out vec3 color;

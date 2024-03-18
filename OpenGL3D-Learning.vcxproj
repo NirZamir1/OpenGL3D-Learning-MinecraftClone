@@ -76,12 +76,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\OpenGL\OpenGL3D-Learning\Dependecies\glew-2.1.0\include;D:\OpenGL\OpenGL3D-Learning\Dependecies\GLFW\include;D:\OpenGL\OpenGL3D-Learning\Dependecies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(solutionDir)Dependecies\glew-2.1.0\include;$(solutionDir)Dependecies\GLFW\include;$(solutionDir)Dependecies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\OpenGL\OpenGL3D-Learning\Dependecies\GLFW\lib-vc2022;D:\OpenGL\OpenGL3D-Learning\Dependecies\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(solutionDir)Dependecies\GLFW\lib-vc2022;$(solutionDir)Dependecies\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -93,14 +93,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\OpenGL\OpenGL3D-Learning\Dependecies\glew-2.1.0\include;D:\OpenGL\OpenGL3D-Learning\Dependecies\GLFW\include;D:\OpenGL\OpenGL3D-Learning\Dependecies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(solutionDir)Dependecies\glew-2.1.0\include;$(solutionDir)Dependecies\GLFW\include;$(solutionDir)Dependecies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\OpenGL\OpenGL3D-Learning\Dependecies\GLFW\lib-vc2022;D:\OpenGL\OpenGL3D-Learning\Dependecies\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(solutionDir)Dependecies\GLFW\lib-vc2022;$(solutionDir)Dependecies\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -140,6 +140,8 @@
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\ShapeData.h" />
     <ClInclude Include="src\ShapeGenerator.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Vendor\stb_image.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\VertexBufferLayout.h" />
@@ -152,6 +154,8 @@
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\ShapeData.cpp" />
     <ClCompile Include="src\ShapeGenerator.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Vendor\stb_image.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\VertexBufferLayout.cpp" />

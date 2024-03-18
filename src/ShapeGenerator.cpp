@@ -29,7 +29,7 @@ ShapeData ShapeGenerator::makeTriangle()
 ShapeData ShapeGenerator::makeSquare()
 {
 	ShapeData ret;
-	Vertex Triangle[] =
+	Vertex Square[] =
 	{
 	   glm::vec3(1.0f,1.0f,0.00f),//pos // top left
 	   glm::vec3(1.0f,0.0f,1.0f),//color
@@ -43,8 +43,8 @@ ShapeData ShapeGenerator::makeSquare()
 	   glm::vec3(-1.0f,1.0f,0.0f), // top right
 	   glm::vec3(1.0f,1.0f,1.00f),
 	};
-	ret.vertecies = Triangle;
-	ret.numVertecies = NUM_ELEMENTS_ARRAY(Triangle);
+	ret.vertecies = Square;
+	ret.numVertecies = NUM_ELEMENTS_ARRAY(Square);
 	unsigned short indecies[] =
 	{
 		0,1,2,
