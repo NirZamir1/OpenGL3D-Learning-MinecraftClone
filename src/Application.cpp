@@ -14,7 +14,6 @@
 #include "IndexBuffer.h"
 #include "Texture.h"
 #include <math.h>
-#define DegToRad(x)  ((x*3.14159265f)/180.0f)
 int width(GLFWwindow* window);
 int height(GLFWwindow* window);
 void printMat4(const glm::mat4& matrix) {
@@ -45,7 +44,7 @@ int main()
     glewInit();
     glfwSwapInterval(1);
     glEnable(GL_DEPTH_TEST);
-    ShapeData shape = ShapeGenerator::makeCube();
+    ShapeData<Vertex> shape = ShapeGenerator::makeCube();
     VertexArray va;
     VertexBuffer vb(shape.vertecies,shape.GetVerteciesBufferSize());
     IndexBuffer ib(shape.indecies,shape.numIndecies);
@@ -57,9 +56,10 @@ int main()
     ib.Bind();
     Shader shader("res/shaders/basics.shader");
     shader.Bind();
-
+    Texture dog("res/Textures/dog");
+    dog.Bind(0);
     float nearPlane = 1.0f;
-    float farPlane = 8.0f;
+    float farPlane = 100.0f;
 
     float range = farPlane - nearPlane;
     
