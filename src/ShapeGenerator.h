@@ -3,7 +3,8 @@
 class ShapeGenerator
 {
 public:
-	static ShapeData makeTriangle();
-	static ShapeData makeSquare();
-	static ShapeData makeCube();
+	static ShapeData<Vertex> makeTriangle();
+	static ShapeData<VertexTex> makeSquare();
+	static ShapeData<Vertex> makeCube();
+	static ShapeData<VertexTex> makeTexturedCube();
 };

@@ -45,19 +45,21 @@ int main()
     glewInit();
     glfwSwapInterval(1);
     glEnable(GL_DEPTH_TEST);
-    ShapeData shape = ShapeGenerator::makeCube();
+    Texture tex("res/textures/grass.png");
+    ShapeData<VertexTex> shape = ShapeGenerator::makeTexturedCube();
     VertexArray va;
     VertexBuffer vb(shape.vertecies,shape.GetVerteciesBufferSize());
     IndexBuffer ib(shape.indecies,shape.numIndecies);
     VertexBufferLayout layout;
     layout.Push<float>(3);
     layout.Push<float>(3);
+    layout.Push<float>(2);
     va.AddBuffer(vb, layout);
     va.Bind();
     ib.Bind();
     Shader shader("res/shaders/basics.shader");
     shader.Bind();
-
+    tex.Bind();
     float nearPlane = 1.0f;
     float farPlane = 8.0f;
 
@@ -72,17 +74,17 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float f = 1 /std::tan(glm::radians(30.0f));
         float aspect = 1/((float)width(window) / height(window));
-        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle += 0.5f), glm::vec3(1.0f,1.0f, 1.0f));
+        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle+= 0.5f), glm::vec3(1.0f,1.0f, 1.0f));
         glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 6.0f));
         glm::mat4 projection = glm::mat4(aspect * f,  0.0f,  0.0f, 0.0f,
                                          0.0f,        f,     0.0f, 0.0f,
                                          0.0f,        0.0f,  A, 1.0f,
                                          0.0f,        0.0f,  B, 0.0f);
         glm::mat4 mvpMatrix = projection * translate * rotate;
-        /* Render here */ 
+        shader.SetUniform1f("tex", 0);
         shader.SetUniformMatrix4fv("mvpMatrix", mvpMatrix);
         glViewport(0, 0, width(window), height(window));
-        GLCall(glDrawElements(GL_TRIANGLES, shape.numIndecies, GL_UNSIGNED_SHORT, 0));
+        GLCall(glDrawElements(GL_TRIANGLES,shape.numIndecies, GL_UNSIGNED_SHORT, 0));
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
         /* Poll for and process events */
