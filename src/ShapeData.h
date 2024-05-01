@@ -1,6 +1,6 @@
 #pragma once
 #include "VertexStruct.h"
-template<typename t>
+template <typename T>
 struct ShapeData 
 {
 	ShapeData();
@@ -8,7 +8,7 @@ struct ShapeData
 	void CleanUp();
 	int GetVerteciesBufferSize();
 	int GetIndeciesBufferSize();
-	t* vertecies;
+	T* vertecies;
 	unsigned int numVertecies;
 	unsigned short* indecies;
 	unsigned int numIndecies;

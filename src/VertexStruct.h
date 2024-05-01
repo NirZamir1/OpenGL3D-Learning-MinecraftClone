@@ -4,10 +4,10 @@ struct Vertex
 {
 	glm::vec3 position;
 	glm::vec3 color;
-}; 
-struct Vertex2
+};
+struct VertexTex
 {
 	glm::vec3 position;
 	glm::vec3 color;
-	glm::vec2 TexCords;
+	glm::vec2 texturePos;
 };

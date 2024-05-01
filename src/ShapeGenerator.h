@@ -4,6 +4,7 @@ class ShapeGenerator
 {
 public:
 	static ShapeData<Vertex> makeTriangle();
-	static ShapeData<Vertex2> makeSquare();
+	static ShapeData<VertexTex> makeSquare();
 	static ShapeData<Vertex> makeCube();
+	static ShapeData<VertexTex> makeTexturedCube();
 };
