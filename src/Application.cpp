@@ -29,6 +29,8 @@ void printMat4(const glm::mat4& matrix) {
 float X = 0;
 float Y = 0;
 float Z = 0;
+float XAngle = 0;
+float YAngle = 0;
 std::unordered_map<unsigned int, bool> keyCache;
 int main()
 {
@@ -78,15 +80,23 @@ int main()
     while (!glfwWindowShouldClose(window))
     {   
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        float f = 1 /std::tan(glm::radians(30.0f));
+        float f = 1 /std::tan(glm::radians(30.00f));
         float aspect = 1/((float)width(window) / height(window));
-        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle+= 0.5f), glm::vec3(1.0f,1.0f, 1.0f));
-        glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(-X, -Y, -Z));
+        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle+= 0.5f), glm::vec3(0.0f,1.0f, 0.0f));
+        glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+        glm::mat4 viewT = glm::translate(glm::mat4(1.0f), glm::vec3(-X, -Y, -Z));
+        glm::mat4 viewR = glm::rotate(glm::mat4(1.0f), glm::radians(YAngle), glm::vec3(0.0f, 1.0f, 0.0f));
+        viewR = glm::rotate(viewR, glm::radians(XAngle), glm::vec3(1.0f, 0.0f, 0.0f));
+        glm::mat4 model = translate * rotate;
+        glm::mat4 view = viewR * viewT;
         glm::mat4 projection = glm::mat4(aspect * f,  0.0f,  0.0f, 0.0f,
                                          0.0f,        f,     0.0f, 0.0f,
                                          0.0f,        0.0f,  A, 1.0f,
                                          0.0f,        0.0f,  B, 0.0f);
-        glm::mat4 mvpMatrix = projection * translate * rotate;
+        shader.SetUniform3f("cameraPos", X, Y, Z);
+        shader.SetUniform3f("lightPos", 0.0f, 0.0f, -5.0f);
+        shader.SetUniformMatrix4fv("mMatrix", model);
+        glm::mat4 mvpMatrix = projection * view * model;
         shader.SetUniform1f("tex", 0);
         shader.SetUniformMatrix4fv("mvpMatrix", mvpMatrix);
         glViewport(0, 0, width(window), height(window));
@@ -115,8 +125,8 @@ int height(GLFWwindow* window)
 }
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    std::cout << action << std::endl;
     float add = 0.5f;
+    float addA = 1.0f;
     /*if (action == GLFW_RELEASE)
         keyCache[key] = false;*/
    if (action == GLFW_PRESS || action == GLFW_REPEAT )
@@ -143,7 +153,38 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         case GLFW_KEY_D:
         {
             X += add;
-          break;
+            break;
+        }
+        case GLFW_KEY_SPACE:
+        {
+            Y += add;
+            break;
+
+        }
+        case GLFW_KEY_LEFT_SHIFT:
+        {
+            Y -= add;
+            break;
+        }
+        case GLFW_KEY_LEFT:
+        {
+            YAngle += addA;
+            break;
+        }
+        case GLFW_KEY_RIGHT:
+        {
+            YAngle -= addA;
+            break;
+        }
+        case GLFW_KEY_UP:
+        {
+            XAngle += addA;
+            break;
+        }
+        case GLFW_KEY_DOWN:
+        {
+            XAngle -= addA;
+            break;
         }
         default:
             break;
