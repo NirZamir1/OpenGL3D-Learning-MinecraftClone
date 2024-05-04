@@ -17,6 +17,7 @@
 
 int width(GLFWwindow* window);
 int height(GLFWwindow* window);
+void ProcessInputs(GLFWwindow* w, double* _xpos, double* _ypos);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void printMat4(const glm::mat4& matrix) {
     for (int i = 0; i < 4; ++i) {
@@ -31,7 +32,6 @@ float Y = 0;
 float Z = 0;
 float XAngle = 0;
 float YAngle = 0;
-std::unordered_map<unsigned int, bool> keyCache;
 int main()
 {
     GLFWwindow* window;
@@ -51,6 +51,7 @@ int main()
     glfwMakeContextCurrent(window);
     glewInit();
     glfwSwapInterval(1);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetKeyCallback(window, key_callback);
     glEnable(GL_DEPTH_TEST);
     Texture tex("res/textures/grass.png");
@@ -70,19 +71,28 @@ int main()
     tex.Bind();
     float nearPlane = 1.0f;
     float farPlane = 100.0f;
-
     float range = farPlane - nearPlane;
-    
     float A = (-farPlane - nearPlane) / -range;
     float B = 2.0f * farPlane * nearPlane / -range;
-
     float angle = 0.0f;
+
+    //setting up mouse movement
+    double cX, cY; 
+    ProcessInputs(window, &cX, &cY);
+    double lX = cX, lY = cY;
+    double deltaX;
+    double deltaY;
+
     while (!glfwWindowShouldClose(window))
     {   
+        deltaX = cX - lX;
+        deltaY = cY - lY;
+        XAngle = -0.1 * deltaY;
+        YAngle = -0.1 * deltaX;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        float f = 1 /std::tan(glm::radians(30.00f));
+        float f = 1 /std::tan(glm::radians(45.0f));
         float aspect = 1/((float)width(window) / height(window));
-        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle+= 0.5f), glm::vec3(0.0f,1.0f, 0.0f));
+        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians( 0.0f), glm::vec3(0.0f,1.0f, 0.0f));
         glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
         glm::mat4 viewT = glm::translate(glm::mat4(1.0f), glm::vec3(-X, -Y, -Z));
         glm::mat4 viewR = glm::rotate(glm::mat4(1.0f), glm::radians(YAngle), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -101,6 +111,8 @@ int main()
         shader.SetUniformMatrix4fv("mvpMatrix", mvpMatrix);
         glViewport(0, 0, width(window), height(window));
         GLCall(glDrawElements(GL_TRIANGLES,shape.numIndecies, GL_UNSIGNED_SHORT, 0));
+        //processing inputs
+        ProcessInputs(window,&cX,&cY);
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
         /* Poll for and process events */
@@ -108,6 +120,27 @@ int main()
     }
     glfwTerminate();
     return 0;
+}
+
+void ProcessInputs(GLFWwindow* w,double* _xpos, double* _ypos)
+{
+    double ypos, xpos;
+    if (glfwGetKey(w, GLFW_KEY_W) == GLFW_PRESS)
+        std::cout << "move forward" << std::endl;
+    if (glfwGetKey(w, GLFW_KEY_S) == GLFW_PRESS)
+        std::cout << "move backward" << std::endl;
+    if (glfwGetKey(w, GLFW_KEY_A) == GLFW_PRESS)
+        std::cout << "move left" << std::endl;
+    if (glfwGetKey(w, GLFW_KEY_D) == GLFW_PRESS)
+        std::cout << "move right" << std::endl;
+    if (glfwGetKey(w, GLFW_KEY_SPACE) == GLFW_PRESS)
+        std::cout << "move up" << std::endl;
+    if (glfwGetKey(w, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        std::cout << "move down" << std::endl;
+    glfwGetCursorPos(w, &xpos, &ypos);
+    std::cout << xpos << "," << ypos << std::endl;
+    *_xpos = xpos;
+    *_ypos = ypos;
 }
 
 //mr helper
