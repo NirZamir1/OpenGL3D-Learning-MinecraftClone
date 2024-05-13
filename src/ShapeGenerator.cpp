@@ -33,15 +33,16 @@ ShapeData<VertexTex> ShapeGenerator::makeSquare()
 	{
 	   glm::vec3(1.0f,1.0f,0.00f),//pos // top left
 	   glm::vec3(1.0f,0.0f,1.0f),//color
-
+	   glm::vec2(1.0f,1.0f),
 	   glm::vec3(1.0f,-1.0f,0.0f), // bottom left
 	   glm::vec3(0.0f,1.0f,1.0f),
-
+	   glm::vec2(1.0f,0.0f),
 	   glm::vec3(-1.0f,-1.0f,0.0f), // bottom right
 	   glm::vec3(1.0f,1.0f,0.00f),
-
+	   glm::vec2(0.0f,0.0f),
 	   glm::vec3(-1.0f,1.0f,0.0f), // top right
 	   glm::vec3(1.0f,1.0f,1.00f),
+	   glm::vec2(0.0f,1.0f),
 	};
 	ret.vertecies = Square;
 	ret.numVertecies = NUM_ELEMENTS_ARRAY(Square);

@@ -18,8 +18,6 @@ void main()
     color = c;
     texCoords = texcords;
 };
-
-
 #shader fragment
 #version 330 core
 #extension GL_ARB_separate_shader_objects : enable
@@ -27,18 +25,19 @@ in vec3 color;
 in vec2 texCoords;
 in vec3 fragPos;
 out vec4 FragColor;
-uniform vec3 lightPos;
+uniform vec4 lightPos;
 uniform vec3 cameraPos;
 uniform sampler2D tex;
+uniform vec4 lightColor;
+
 void main()
 {   
     // Interpolate color based on Y-coordinate
     vec4 objectColor =texture(tex,texCoords);
-    vec4 lightColor = vec4(1.0f,0.5f,0.5f,1.0f);
     vec3 vecx = dFdx(fragPos);
     vec3 vecy = dFdy(fragPos);
     vec3 normal = normalize(cross(vecy,vecx));
-    vec3 lightVec = normalize(lightPos - fragPos);
+    vec3 lightVec = normalize(lightPos.xyz - fragPos);
     vec3 eyeVec = normalize(cameraPos - fragPos);
     float diff = max(dot(lightVec,normal),0.0f);
     vec4 diffuse = diff*lightColor;
