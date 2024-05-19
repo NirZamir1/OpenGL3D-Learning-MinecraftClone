@@ -139,8 +139,16 @@ int main()
         camera.rotatePitch(XAngle);
         camera.rotateYaw(YAngle);
 
+        GLCall(glBindTexture(GL_TEXTURE_2D, fbTexture));
+        GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width(window), height(window), 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL));
+        GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+        GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+        GLCall(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width(window), height(window)));
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-        
+
+
         glEnable(GL_DEPTH_TEST);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         vaCube.Bind();

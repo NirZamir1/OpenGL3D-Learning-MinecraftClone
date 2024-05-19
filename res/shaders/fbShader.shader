@@ -18,8 +18,24 @@ void main()
 in vec2 texCords;
 out vec4 fragColor;
 uniform sampler2D tex;
-
+vec2 cords[] = vec2[9]
+(
+	vec2(texCords.x - 1.0f/800.0f, texCords.y+1.0f/800.0f) , vec2(texCords.x, texCords.y+1.0f/800.0f), vec2(texCords.x + 1.0f/800.0f, texCords.y+1.0f/800.0f),
+	vec2(texCords.x- 1.0f/800.0f, texCords.y) , vec2(texCords.x, texCords.y), vec2(texCords.x + 1.0f/800.0f, texCords.y),
+	vec2(texCords.x - 1.0f/800.0f, texCords.y- 1.0f/800.0f) , vec2(texCords.x, texCords.y- 1.0f/800.0f), vec2(texCords.x + 1.0f/800.0f, texCords.y - 1.0f/800.0f)
+);
+int kernel[] = int[9]
+( 1, 1, 1,
+  1, 1, 1,
+  1, 1, 1
+);
 void main()
 {   
+	vec4 result;
+	for(int i =0; i < 9; ++i)
+	{
+	result += kernel[i] * texture(tex,cords[i])/20;
+	}
+	result = result;
 	fragColor = texture(tex,texCords);
 };
