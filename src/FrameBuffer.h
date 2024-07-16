@@ -1,3 +1,4 @@
+#pragma once
 #include"Renderer.h"
 #include"Shader.h"
 #include <GL/glew.h>

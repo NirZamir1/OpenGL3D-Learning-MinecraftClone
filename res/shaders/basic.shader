@@ -5,23 +5,24 @@
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec3 c;
 layout(location = 2) in vec2 texcords;
-uniform mat4 mvpMatrix;
-uniform mat4 mMatrix;
+layout(location = 3) in mat4 modelMatrix;
+uniform mat4 vpMatrix;
 out vec3 color;
 out vec2 texCoords;
 out vec3 fragPos;
 void main()
 {
     vec4 v = vec4(position, 1.0);
-    gl_Position = mvpMatrix * v;
-    fragPos = (mMatrix * v).xyz;
-    color = c;
+    mat4 mvp = vpMatrix * modelMatrix;
+    gl_Position = mvp * v;
+    fragPos = (modelMatrix * v).xyz;
     texCoords = texcords;
 };
+
+
 #shader fragment
 #version 330 core
 #extension GL_ARB_separate_shader_objects : enable
-in vec3 color;
 in vec2 texCoords;
 in vec3 fragPos;
 out vec4 FragColor;
@@ -43,7 +44,7 @@ void main()
     vec4 diffuse = diff*lightColor;
     vec3 b = 2* dot(normal,lightVec)*normal - lightVec;
     vec4 specular = pow(max(dot(eyeVec, b), 0.0),32) * lightColor * 0.5;
-    vec4 ambient = 0.2 * lightColor;
-    vec4 result = (ambient+diffuse)* objectColor + specular;
+    vec4 ambient = 0.3 * lightColor;
+    vec4 result = (ambient+diffuse)* objectColor*0.5 + objectColor*0.3 + specular;
     FragColor = result;
 };

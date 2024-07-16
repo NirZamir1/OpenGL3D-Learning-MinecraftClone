@@ -143,7 +143,7 @@ unsigned int Shader::CompileShader(unsigned int type, const char* source)
  int Shader::GetUniformLocation(const std::string& name) 
 { 
     int location;
-    if (m_UniformLocationCache.count(name) != 0)
+    if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
         return m_UniformLocationCache[name];
     else
     {
