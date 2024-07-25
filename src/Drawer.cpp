@@ -6,7 +6,7 @@ Drawer::Drawer() :
 {
     //temporarly setting up lightsource manualy
     m_lightSource.LightColor = glm::vec4(0.7, 0.7, 1.0f, 1.0f);
-    m_lightSource.LightPosition = glm::vec4(0.0f, 100.0f, 0.0f, 1.0f);
+    m_lightSource.LightPosition = glm::vec4(0.0f, 100.0f, 5.0f, 1.0f);
     VertexBufferLayout layout;
     layout.Push<float>(3);
     layout.Push<float>(3);
@@ -20,8 +20,6 @@ Drawer::Drawer() :
 
 void Drawer::drawChunks(chunkmap& chunks, Camera& camera)
 {
-
-
     m_vaCube.Bind();
     m_Ib.Bind();
     float fovAngle = 90.0f;
@@ -55,9 +53,12 @@ void Drawer::drawChunks(chunkmap& chunks, Camera& camera)
                 m_textures[i]->Bind();
                 val.BindChunkBlock(m_vaCube.getlayoutOfSet(),i+1);
                 glDrawElementsInstanced(GL_TRIANGLES, m_shape.numIndecies, GL_UNSIGNED_SHORT, 0, val.getCount(i+1));
+                m_textures[i]->Unbind();
+                val.UnBindChunkBlock(m_vaCube.getlayoutOfSet(), i + 1);
             }
         }
     }
+
 }
 
 void Drawer::drawLightSource(Camera& camera)

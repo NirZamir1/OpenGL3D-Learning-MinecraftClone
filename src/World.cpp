@@ -170,7 +170,7 @@ void World::SaveChunk(int x, int z)
 
 void World::RenderWorld(Drawer& draw,Camera& camera)
 {
-	draw.drawLightSource(camera);
+    draw.drawLightSource(camera);
 	draw.drawChunks(m_chunks, camera);
 
 }

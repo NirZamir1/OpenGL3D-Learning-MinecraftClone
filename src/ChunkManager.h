@@ -23,4 +23,5 @@ public:
 	~ChunkManger();
 	void UpdateChunk();
 	void BindChunkBlock(int mememoryLayoutOfSet,int blocktype); //sets up the chunk for render
+	void UnBindChunkBlock(int mememoryLayoutOfSet, int blocktype);
 };

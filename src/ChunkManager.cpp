@@ -80,7 +80,16 @@ void ChunkManger::BindChunkBlock(int memoryLayoutOfSet,int blocktype)
 		GLCall(glEnableVertexAttribArray(i + memoryLayoutOfSet));
 		GLCall(glVertexAttribDivisor(i + memoryLayoutOfSet, 1));
 	}
+	
 
+}
+void ChunkManger::UnBindChunkBlock(int memoryLayoutOfSet, int blocktype)
+	{
+		chunkModelTransform[blocktype - 1]->UnBind();
+		for (int i = 0; i < 4; i++)
+		{
+			GLCall(glDisableVertexAttribArray(i + memoryLayoutOfSet));
+		}
 }
 Chunk* ChunkManger::getChunk() const
 {
