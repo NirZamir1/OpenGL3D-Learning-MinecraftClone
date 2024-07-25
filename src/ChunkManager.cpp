@@ -60,7 +60,6 @@ ChunkManger::ChunkManger(ChunkManger&& chunkManger)
 
 ChunkManger::~ChunkManger()
 {
-	std::cout << "here" << std::endl;
 	for (int i = 0; i < 3; i++)
 	{
 		delete chunkModelTransform[i];

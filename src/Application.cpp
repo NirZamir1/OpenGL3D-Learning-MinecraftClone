@@ -102,7 +102,7 @@ int main()
     
     Camera camera(window);
     Drawer drawer;
-    World world("funny");
+    World world("funnyNumber",69420);
 
     //setting up mouse movement
     double cX, cY; 
@@ -159,7 +159,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glViewport(0, 0, camera.width(), camera.height());
         world.UpdateChunks(camera.getPosition().x, camera.getPosition().z);
-        world.RenderChunks(drawer, camera);
+        world.RenderWorld(drawer, camera);
 
         //processing inputs
         ProcessInputs(window,&camera,&cX,&cY);
@@ -192,5 +192,3 @@ void ProcessInputs(GLFWwindow* w ,Camera* camera,double* _xpos, double* _ypos)
     *_xpos = xpos;
     *_ypos = ypos;
 }
-
-//mr helper

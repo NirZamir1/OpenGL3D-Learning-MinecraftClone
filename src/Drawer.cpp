@@ -5,7 +5,7 @@ Drawer::Drawer() :
     m_lightSourceShader("res/shaders/lightSource.shader")
 {
     //temporarly setting up lightsource manualy
-    m_lightSource.LightColor = glm::vec4(0.8, 0.8, 1.0f, 1.0f);
+    m_lightSource.LightColor = glm::vec4(0.7, 0.7, 1.0f, 1.0f);
     m_lightSource.LightPosition = glm::vec4(0.0f, 100.0f, 0.0f, 1.0f);
     VertexBufferLayout layout;
     layout.Push<float>(3);
@@ -58,6 +58,29 @@ void Drawer::drawChunks(chunkmap& chunks, Camera& camera)
             }
         }
     }
+}
+
+void Drawer::drawLightSource(Camera& camera)
+{
+    m_vaCube.Bind();
+    m_Ib.Bind();
+    m_lightSourceShader.Bind();
+    float fovAngle = 90.0f;
+    float nearPlane = 1.0f;
+    float farPlane = 1000.0f;
+    float range = farPlane - nearPlane;
+    float A = (-farPlane - nearPlane) / -range;
+    float B = 2.0f * farPlane * nearPlane / -range;
+    float f = 1 / std::tan(glm::radians(fovAngle / 2));
+    float aspect = 1 / ((float)camera.width() / camera.height());
+    projectionMatrix = glm::mat4(aspect * f, 0.0f, 0.0f, 0.0f,
+        0.0f, f, 0.0f, 0.0f,
+        0.0f, 0.0f, A, 1.0f,
+        0.0f, 0.0f, B, 0.0f);
+    glm::mat4 mvpMatrix = projectionMatrix * camera.getViewMatrix() * glm::translate(glm::mat4(1.0f),glm::vec3(m_lightSource.LightPosition));
+    m_lightSourceShader.SetUniformMatrix4fv("mvpMatrix", mvpMatrix);
+    m_lightSourceShader.SetUniform4f("lightColor", m_lightSource.LightColor);
+    GLCall(glDrawElements(GL_TRIANGLES, m_shape.numIndecies, GL_UNSIGNED_SHORT, 0));
 }
 
 bool Drawer::inViewChecker(Camera& camera, std::pair<int, int> chunkPos) const

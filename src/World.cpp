@@ -8,16 +8,16 @@ std::size_t pair_hash::operator()(const std::pair<T1, T2>& p) const {
 	return hash1 ^ (hash2 << 1);
 }
 
-World::World(std::string worldName)
+World::World(std::string worldName,unsigned int seed)
 	:m_viewDistance(10),
 	worldWith(32),
 	past_X(-1),
 	past_Z(-1),
 	worldName(worldName+ ".world")
 {
-	Noise noise(123);
+	Noise noise(seed);
 	std::fstream infile(this->worldName ,std::fstream::in);
-	if (true)
+	if (!infile)
 	{
 		//generate new world file
 		std::fstream ofstream(this->worldName, std::fstream::out | std::fstream::binary);
@@ -168,11 +168,9 @@ void World::SaveChunk(int x, int z)
 	ofstream.write((const char*) m_chunks[{x,z}].getChunk(), sizeof(Chunk));
 }
 
-void World::RenderChunks(Drawer& draw,Camera& camera)
+void World::RenderWorld(Drawer& draw,Camera& camera)
 {
+	draw.drawLightSource(camera);
 	draw.drawChunks(m_chunks, camera);
-	/*for (auto& [key,value]:m_chunks)
-	{
-		draw.drawChunks(value,camera);
-	}*/
+
 }

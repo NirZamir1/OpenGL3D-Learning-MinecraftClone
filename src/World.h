@@ -11,9 +11,9 @@
 class World
 {
 public :
-	World(std::string worldName = "World");
+	World(std::string worldName = "World",unsigned int seed = 1);
 	void UpdateChunks(int playerX, int playerZ);//updates chunks according to view distance
-	void RenderChunks(Drawer& draw, Camera& camera);
+	void RenderWorld(Drawer& draw, Camera& camera);
 
 private:
 	int m_viewDistance;

@@ -18,7 +18,7 @@ private:
 	GLFWwindow* window;
 	glm::vec3 positionVector;
 public:
-	Camera(GLFWwindow* window, glm::vec3 pos = glm::vec3(0, 70, 0));
+	Camera(GLFWwindow* window, glm::vec3 pos = glm::vec3(0, 0, 0));
 	glm::vec3 getPosition();
 	glm::mat4 getViewMatrix();
 	void moveForward(float dir);

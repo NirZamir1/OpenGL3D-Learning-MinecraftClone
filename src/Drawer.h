@@ -19,6 +19,8 @@ class Drawer
 public:
 	Drawer();
 	void drawChunks(chunkmap& chunks,Camera& camera);
+	void drawLightSource(Camera& camera);
+
 private:
 	ShapeData<VertexTex> m_shape;
 	VertexBuffer m_vb;
